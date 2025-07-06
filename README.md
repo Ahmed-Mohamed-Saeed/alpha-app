@@ -1,4 +1,4 @@
-# Welcome to Al Alpha app 👋
+# Welcome to Alpha Health app 👋
 
 
 ## App Preview
