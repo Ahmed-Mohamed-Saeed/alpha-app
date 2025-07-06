@@ -3,7 +3,14 @@
 
 ## App Preview
 
-<img src="https://raw.githubusercontent.com/Ahmed-Mohamed-Saeed/alpha-app/main/assets/images/alpha.png" alt="App Screenshot" width="300" />
+<img src="https://raw.githubusercontent.com/Ahmed-Mohamed-Saeed/alpha-app/main/assets/images/alpha.png" alt="App Screenshot" width="300" style="display: block; margin: 0 auto;" />
+
+## Tech Stack
+
+- React Native
+- Expo
+- UI Animated
+- NativeWind (Tailwind CSS for React Native)
 
 ## Getting Started
 
@@ -12,13 +19,6 @@
 ```bash
 git clone https://github.com/Ahmed-Mohamed-Saeed/alpha-app.git
 ```
-
-## Tech Stack
-
-- React Native
-- Expo
-- UI Animated
-- NativeWind (Tailwind CSS for React Native)
 
 ## How to Run
 
