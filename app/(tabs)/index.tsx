@@ -1,75 +1,132 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { categories, exercises } from '@/constants/Data';
+import { StatusBar } from 'expo-status-bar';
+import { Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+    <SafeAreaView className="flex-1 bg-[#263D94]">
+      <StatusBar style="light" hidden={true} />
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+      {/* Header */}
+      <View className="flex-row justify-between items-center p-10 mt-3">
+        <Image source={require('@/assets/images/notification.png')} className="w-6 h-6" />
+        <Image source={require('@/assets/images/user-circle.png')} className="w-6 h-6" />
+      </View>
+
+      {/* Article */}
+      <Text className="text-center text-white text-5xl font-bold mb-5">Articles</Text>
+
+      {/* Main Content */}
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        {/* Featured Article */}
+        <Animated.View entering={FadeInDown.delay(100).duration(700)} className="mx-6 mb-4 bg-[#4E8FF6] rounded-xl p-4 overflow-hidden">
+          <View className="flex-row justify-between p-10">
+            <View className="flex-1">
+              <Text className="text-white text-xl font-semibold">Article Title</Text>
+              <Text className="text-white opacity-80 mt-1">Description goes here</Text>
+            </View>
+            <View className="w-16 h-16 items-center justify-center">
+              <Image source={require('@/assets/images/big-image.png')} className="w-26 h-26" />
+            </View>
+          </View>
+        </Animated.View>
+
+        {/* Search Bar */}
+        <Animated.View entering={FadeInDown.delay(200).duration(700)} className="mx-7 mb-4">
+          <View className="flex-row items-center justify-between space-x-2 mt-5">
+            <View className="flex-row items-center flex-1 border border-[#4E8FF6] rounded-[0.75rem] px-3">
+              <Image source={require('@/assets/images/search-icon.png')} className="w-6 h-6" />
+              <TextInput
+                placeholder="Search"
+                placeholderTextColor="white"
+                className="text-white ml-1 flex-1"
+              />
+            </View>
+            <TouchableOpacity className="bg-[#4E8FF6] p-3 rounded-md ml-3">
+              <Image source={require('@/assets/images/filter-horizontal.png')} className="w-5 h-5" />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+
+        {/* Categories */}
+        <Animated.ScrollView
+          entering={FadeInDown.delay(300).duration(700)}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="px-4 mb-4 mt-5"
+        >
+          {categories.slice(0, 5).map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              className="mr-3 px-2 py-2 ml-2 rounded-md bg-[#4E8FF6]"
+            >
+              <View className="flex-row items-center">
+                {category === 'Category' && (
+                  <Image
+                    source={
+                      index === 2
+                        ? require('@/assets/images/yoga-ball.png')
+                        : require('@/assets/images/yoga-02.png')
+                    }
+                    className="w-5 h-5"
+                  />
+                )}
+                <Text className="text-white mr-2 ml-3">{category}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </Animated.ScrollView>
+
+        {/* Exercises Grid */}
+        <View className="px-10 mt-5 flex-row flex-wrap justify-between">
+          {exercises.slice(0, 6).map((exercise, index) => (
+            <Animated.View
+              key={exercise.id}
+              entering={FadeInUp.delay(400 + index * 100).duration(700)}
+              className="w-[45%] mb-4"
+            >
+              {/* Image Card */}
+              <View className="bg-[#D9E6F2] rounded-xl overflow-hidden p-3">
+                <View className="h-32 items-center justify-center">
+                  <View className="w-16 h-16 rounded-full items-center justify-center">
+                    <Image source={require('@/assets/images/black-image.png')} className="w-26 h-26" />
+                  </View>
+                </View>
+              </View>
+
+              {/* Title and Description (outside the card) */}
+              <View className="mt-2">
+                <Text className="text-white font-semibold">{exercise.title}</Text>
+                <Text className="text-white/70 text-xs">{exercise.description}</Text>
+              </View>
+            </Animated.View>
+          ))}
+        </View>
+      </ScrollView>
+
+      {/* Bottom Tab Bar */}
+      <View className="bg-[#4E8FF6] flex-row justify-around items-center py-7">
+        <TouchableOpacity className="items-center">
+          <Image source={require('@/assets/images/calendar.png')} className="w-6 h-6" />
+          <Text className="text-white text-xs mt-1">Plan</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity className="items-center">
+          <Image source={require('@/assets/images/dumbbell.png')} className="w-6 h-6" />
+          <Text className="text-white text-xs mt-1">Exercises</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity className="items-center">
+          <Image source={require('@/assets/images/bookmark.png')} className="w-6 h-6" />
+          <Text className="text-white text-xs">Learn</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity className="items-center">
+          <Image source={require('@/assets/images/alfa.png')} className="w-6 h-6" />
+          <Text className="text-white text-xs mt-1">Learn</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  )
+}
