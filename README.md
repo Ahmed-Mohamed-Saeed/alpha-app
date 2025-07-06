@@ -3,7 +3,7 @@
 
 ## App Preview
 
-![App Screenshot](https://raw.githubusercontent.com/Ahmed-Mohamed-Saeed/alpha-app/main/assets/images/alpha.png)
+<img src="https://raw.githubusercontent.com/Ahmed-Mohamed-Saeed/alpha-app/main/assets/images/alpha.png" alt="App Screenshot" width="300" />
 
 ## Getting Started
 
